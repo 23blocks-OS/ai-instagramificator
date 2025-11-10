@@ -2,10 +2,67 @@
 
 import { FileUploader } from '@/components/FileUploader';
 import { MediaGrid } from '@/components/MediaGrid';
+import { ImageEditor } from '@/components/editor/ImageEditor';
+import { VideoTrimmer } from '@/components/editor/VideoTrimmer';
+import { useMediaStore } from '@/store/mediaStore';
 import { Folder, LayoutGrid, Settings, User } from 'lucide-react';
 import Link from 'next/link';
 
 export default function Home() {
+  const { currentFile, setCurrentFile, addEditedFile } = useMediaStore();
+
+  const handleSaveEdit = async (editedUrl: string) => {
+    if (!currentFile) return;
+
+    // Convert the blob URL to a File object
+    const response = await fetch(editedUrl);
+    const blob = await response.blob();
+    const fileName = `${currentFile.metadata.name.split('.')[0]}_edited.${blob.type.split('/')[1]}`;
+    const file = new File([blob], fileName, { type: blob.type });
+
+    // Create a new media file entry for the edited version
+    const editedFile = {
+      ...currentFile,
+      id: crypto.randomUUID(),
+      file,
+      url: editedUrl,
+      metadata: {
+        ...currentFile.metadata,
+        name: fileName,
+        uploadedAt: new Date(),
+      },
+    };
+
+    // Add the edited file to the store
+    addEditedFile(editedFile);
+    setCurrentFile(null);
+  };
+
+  const handleCancelEdit = () => {
+    setCurrentFile(null);
+  };
+
+  // Show editor if a file is selected
+  if (currentFile) {
+    if (currentFile.type === 'image') {
+      return (
+        <ImageEditor
+          media={currentFile}
+          onSave={handleSaveEdit}
+          onCancel={handleCancelEdit}
+        />
+      );
+    } else if (currentFile.type === 'video') {
+      return (
+        <VideoTrimmer
+          media={currentFile}
+          onSave={handleSaveEdit}
+          onCancel={handleCancelEdit}
+        />
+      );
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Sidebar */}

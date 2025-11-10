@@ -22,6 +22,7 @@ interface MediaStore {
 
   // Actions
   addFiles: (files: File[]) => void;
+  addEditedFile: (mediaFile: MediaFile) => void;
   removeFile: (id: string) => void;
   selectFile: (id: string) => void;
   deselectFile: (id: string) => void;
@@ -51,6 +52,12 @@ export const useMediaStore = create<MediaStore>((set) => ({
 
     set((state) => ({
       files: [...state.files, ...newFiles],
+    }));
+  },
+
+  addEditedFile: (mediaFile: MediaFile) => {
+    set((state) => ({
+      files: [...state.files, mediaFile],
     }));
   },
 
