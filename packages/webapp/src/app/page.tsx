@@ -3,6 +3,7 @@
 import { FileUploader } from '@/components/FileUploader';
 import { MediaGrid } from '@/components/MediaGrid';
 import { Folder, LayoutGrid, Settings, User } from 'lucide-react';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -17,10 +18,10 @@ export default function Home() {
         </div>
 
         <nav className="space-y-2">
-          <NavItem icon={<LayoutGrid className="w-5 h-5" />} label="Library" active />
-          <NavItem icon={<Folder className="w-5 h-5" />} label="Projects" />
-          <NavItem icon={<User className="w-5 h-5" />} label="Portfolio" />
-          <NavItem icon={<Settings className="w-5 h-5" />} label="Settings" />
+          <NavItem icon={<LayoutGrid className="w-5 h-5" />} label="Library" active href="/" />
+          <NavItem icon={<Folder className="w-5 h-5" />} label="Projects" href="/projects" />
+          <NavItem icon={<User className="w-5 h-5" />} label="Portfolio" href="/portfolio" />
+          <NavItem icon={<Settings className="w-5 h-5" />} label="Settings" href="/settings" />
         </nav>
       </aside>
 
@@ -45,9 +46,10 @@ export default function Home() {
   );
 }
 
-function NavItem({ icon, label, active = false }: { icon: React.ReactNode; label: string; active?: boolean }) {
+function NavItem({ icon, label, active = false, href }: { icon: React.ReactNode; label: string; active?: boolean; href: string }) {
   return (
-    <button
+    <Link
+      href={href}
       className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
         active
           ? 'bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400'
@@ -56,6 +58,6 @@ function NavItem({ icon, label, active = false }: { icon: React.ReactNode; label
     >
       {icon}
       <span className="font-medium">{label}</span>
-    </button>
+    </Link>
   );
 }
