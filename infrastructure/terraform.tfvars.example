@@ -1,0 +1,22 @@
+# AWS Configuration
+aws_region  = "us-east-1"
+environment = "dev"
+
+# Project Configuration
+project_name = "starbook"
+domain_name  = "" # Optional: your domain name
+
+# Application Ports
+webapp_port  = 3001
+website_port = 3000
+
+# CDN & Security
+enable_cdn = true
+enable_waf = false
+
+# Database Configuration
+db_instance_class     = "db.t3.micro"
+db_allocated_storage  = 20
+
+# Upload Limits
+max_upload_size_mb = 100

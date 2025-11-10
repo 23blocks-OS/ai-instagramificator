@@ -1,0 +1,28 @@
+{
+  "name": "starbook-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Digital portfolio management platform for aspiring talent",
+  "workspaces": [
+    "packages/website",
+    "packages/webapp"
+  ],
+  "scripts": {
+    "dev:website": "npm run dev --workspace=packages/website",
+    "dev:webapp": "npm run dev --workspace=packages/webapp",
+    "dev": "npm run dev:website & npm run dev:webapp",
+    "build:website": "npm run build --workspace=packages/website",
+    "build:webapp": "npm run build --workspace=packages/webapp",
+    "build": "npm run build:website && npm run build:webapp",
+    "lint": "npm run lint --workspaces",
+    "test": "npm run test --workspaces"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/23blocks-OS/ai-instagramificator"
+  }
+}
