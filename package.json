@@ -5,15 +5,18 @@
   "description": "Digital portfolio management platform for aspiring talent",
   "workspaces": [
     "packages/website",
-    "packages/webapp"
+    "packages/webapp",
+    "packages/web-component"
   ],
   "scripts": {
     "dev:website": "npm run dev --workspace=packages/website",
     "dev:webapp": "npm run dev --workspace=packages/webapp",
+    "dev:webcomponent": "npm run dev --workspace=packages/web-component",
     "dev": "npm run dev:website & npm run dev:webapp",
     "build:website": "npm run build --workspace=packages/website",
     "build:webapp": "npm run build --workspace=packages/webapp",
-    "build": "npm run build:website && npm run build:webapp",
+    "build:webcomponent": "npm run build --workspace=packages/web-component",
+    "build": "npm run build:website && npm run build:webapp && npm run build:webcomponent",
     "lint": "npm run lint --workspaces",
     "test": "npm run test --workspaces"
   },
